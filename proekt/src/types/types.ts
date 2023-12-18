@@ -1,4 +1,4 @@
-import { type } from "os";
+
 
 export interface BannerType {
   id: string;
@@ -13,6 +13,10 @@ export interface InfoBoxType {
   content: string;
 }
 export interface CategoryType{
+  type: string,
+  slug: string
+}
+export interface AccessoriesType{
   type: string,
   slug: string
 }
@@ -36,6 +40,8 @@ export interface ProductType {
   sostojba:  string;
   productDes: string;
   date: string;
+  type: string,
+  accessories: string;
 }
 
 export interface AboutPageType {

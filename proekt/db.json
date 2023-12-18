@@ -261,12 +261,28 @@
     {
       "type": "Панталони",
       "slug": "Панталони"
+    },
+    {
+      "type": "Здолништа / шорцеви",
+      "slug": "Здолништа"
+    },
+    {
+      "type": "Фустани",
+      "slug": "Фустани"
+    },
+    {
+      "type": "Палта и јакни",
+      "slug": "Палта"
+    },
+    {
+      "type": "Долна облека",
+      "slug": "Долнаоблека"
     }
   ],
   "products": [
     {
       "id": "aa",
-      "img": "/Products/pantoloni.jpg",
+      "img": "/Products/tops1.jpg",
       "title": "Puffey кратка јакна",
       "brand": "Зш да не",
       "price": 900,
@@ -282,7 +298,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "Панталони"
+      "type": "Блузи",
+      "collection": "vintage"
     },
     {
       "id": "ab",
@@ -302,7 +319,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "Панталони"
+      "type": "Панталони",
+      "collection": "vintage"
     },
     {
       "id": "ac",
@@ -322,7 +340,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "Панталони"
+      "type": "Панталони",
+      "collection": "vintage"
     },
     {
       "id": "ad",
@@ -342,7 +361,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "Блузи"
+      "type": "Блузи",
+      "collection": "vintage"
     },
     {
       "id": "aе",
@@ -362,7 +382,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "Блузи"
+      "type": "Блузи",
+      "collection": "vintage"
     },
     {
       "id": "af",
@@ -382,7 +403,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "Блузи"
+      "type": "Блузи",
+      "collection": "vintage"
     },
     {
       "id": "ag",
@@ -402,7 +424,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "Блузи"
+      "type": "Блузи",
+      "collection": "vintage"
     },
     {
       "id": "ah",
@@ -422,7 +445,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "sorcevi"
+      "type": "sorcevi",
+      "collection": "vintage"
     },
     {
       "id": "ai",
@@ -442,7 +466,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "sorcevi"
+      "type": "sorcevi",
+      "collection": "vintage"
     },
     {
       "id": "aj",
@@ -462,7 +487,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "sorcevi"
+      "type": "sorcevi",
+      "collection": "vintage"
     },
     {
       "id": "ak",
@@ -482,7 +508,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "sorcevi"
+      "type": "sorcevi",
+      "collection": "vintage"
     },
     {
       "id": "al",
@@ -502,7 +529,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "fustani"
+      "type": "fustani",
+      "collection": "vintage"
     },
     {
       "id": "am",
@@ -522,7 +550,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "fustani"
+      "type": "fustani",
+      "collection": "vintage"
     },
     {
       "id": "an",
@@ -542,7 +571,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "fustani"
+      "type": "fustani",
+      "collection": "vintage"
     },
     {
       "id": "ao",
@@ -562,7 +592,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "fustani"
+      "type": "fustani",
+      "collection": "vintage"
     },
     {
       "id": "ap",
@@ -582,7 +613,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "palta"
+      "type": "palta",
+      "collection": "vintage"
     },
     {
       "id": "aq",
@@ -621,7 +653,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "palta"
+      "type": "palta",
+      "collection": "vintage"
     },
     {
       "id": "as",
@@ -641,7 +674,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "palta"
+      "type": "palta",
+      "collection": "vintage"
     },
     {
       "id": "at",
@@ -661,7 +695,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "palta"
+      "type": "palta",
+      "collection": "vintage"
     },
     {
       "id": "au",
@@ -681,7 +716,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "palta"
+      "type": "palta",
+      "collection": "vintage"
     },
     {
       "id": "av",
@@ -701,7 +737,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "dolna obleka"
+      "type": "dolna obleka",
+      "collection": "vintage"
     },
     {
       "id": "aw",
@@ -721,7 +758,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "dolna obleka"
+      "type": "dolna obleka",
+      "collection": "vintage"
     },
     {
       "id": "ax",
@@ -741,7 +779,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "dolna obleka"
+      "type": "dolna obleka",
+      "collection": "vintage"
     },
     {
       "id": "ay",
@@ -761,7 +800,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "dolna obleka"
+      "type": "dolna obleka",
+      "collection": "vintage"
     },
     {
       "id": "az",
@@ -781,7 +821,8 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.08.2023",
-      "type": "dolna obleka"
+      "type": "dolna obleka",
+      "collection": "vintage"
     },
     {
       "id": "ba",
@@ -1276,6 +1317,207 @@
       "sostojba": "10/10",
       "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
       "date": "21.11.2023"
+    },
+    
+
+    {
+      "id": "ca",
+      "img": "/nakit/hair-accessories-featured-image-3693209_1.webp",
+      "title": "snoli za kosa",
+      "brand": "gatta",
+      "price": 900,
+      "image1": "/productDetail/IMG_0295.jpg",
+      "image2": "/productDetail/IMG_0296.jpg",
+      "image3": "/productDetail/IMG_0297.jpg",
+      "des": "Ова е vintage парче направено од материјал со текстура, сезакопчува со патент.",
+      "quantity": "*само 1 парче",
+      "size": "s",
+      "sizDes": "Совет за величина: ова парче е направено од материјал кој не се растегнува. Одговара на наведената величина.",
+      "color": "#064b91",
+      "material": "100% Полиестер",
+      "sostojba": "10/10",
+      "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
+      "date": "21.11.2023",
+      "type": "Накит",
+      "accessories": "accessories"
+    },
+    {
+      "id": "cb",
+      "img": "/nakit/1.jpg",
+      "title": "alka",
+      "brand": "gatta",
+      "price": 600,
+      "image1": "/productDetail/IMG_0295.jpg",
+      "image2": "/productDetail/IMG_0296.jpg",
+      "image3": "/productDetail/IMG_0297.jpg",
+      "des": "Ова е vintage парче направено од материјал со текстура, сезакопчува со патент.",
+      "quantity": "*само 1 парче",
+      "size": "s",
+      "sizDes": "Совет за величина: ова парче е направено од материјал кој не се растегнува. Одговара на наведената величина.",
+      "color": "#064b91",
+      "material": "100% Полиестер",
+      "sostojba": "10/10",
+      "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
+      "date": "21.11.2023",
+      "type": "Накит",
+      "accessories": "accessories"
+    },
+    {
+      "id": "cd",
+      "img": "/nakit/2.jpg",
+      "title": "alka",
+      "brand": "urma",
+      "price": 950,
+      "image1": "/productDetail/IMG_0295.jpg",
+      "image2": "/productDetail/IMG_0296.jpg",
+      "image3": "/productDetail/IMG_0297.jpg",
+      "des": "Ова е vintage парче направено од материјал со текстура, сезакопчува со патент.",
+      "quantity": "*само 1 парче",
+      "size": "s",
+      "sizDes": "Совет за величина: ова парче е направено од материјал кој не се растегнува. Одговара на наведената величина.",
+      "color": "#064b91",
+      "material": "100% Полиестер",
+      "sostojba": "10/10",
+      "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
+      "date": "21.11.2023",
+      "type": "Накит",
+      "accessories": "accessories"
+    },
+    {
+      "id": "ce",
+      "img": "/nakit/3.jpg",
+      "title": "alka",
+      "brand": "urma",
+      "price": 900,
+      "image1": "/productDetail/IMG_0295.jpg",
+      "image2": "/productDetail/IMG_0296.jpg",
+      "image3": "/productDetail/IMG_0297.jpg",
+      "des": "Ова е vintage парче направено од материјал со текстура, сезакопчува со патент.",
+      "quantity": "*само 1 парче",
+      "size": "s",
+      "sizDes": "Совет за величина: ова парче е направено од материјал кој не се растегнува. Одговара на наведената величина.",
+      "color": "#064b91",
+      "material": "100% Полиестер",
+      "sostojba": "10/10",
+      "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
+      "date": "21.11.2023",
+      "type": "Накит",
+      "accessories": "accessories"
+    },
+    {
+      "id": "cf",
+      "img": "/tasni/baby pink.webp",
+      "title": "baby pink tasna",
+      "brand": "main days",
+      "price": 600,
+      "image1": "/productDetail/IMG_0295.jpg",
+      "image2": "/productDetail/IMG_0296.jpg",
+      "image3": "/productDetail/IMG_0297.jpg",
+      "des": "Ова е vintage парче направено од материјал со текстура, сезакопчува со патент.",
+      "quantity": "*само 1 парче",
+      "size": "s",
+      "sizDes": "Совет за величина: ова парче е направено од материјал кој не се растегнува. Одговара на наведената величина.",
+      "color": "#064b91",
+      "material": "100% Полиестер",
+      "sostojba": "10/10",
+      "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
+      "date": "21.11.2023",
+      "type": "Накит",
+      "accessories": "accessories"
+    },
+    {
+      "id": "cg",
+      "img": "/tasni/crna tasna.jpg",
+      "title": "crna tasna",
+      "brand": "main days",
+      "price": 600,
+      "image1": "/productDetail/IMG_0295.jpg",
+      "image2": "/productDetail/IMG_0296.jpg",
+      "image3": "/productDetail/IMG_0297.jpg",
+      "des": "Ова е vintage парче направено од материјал со текстура, сезакопчува со патент.",
+      "quantity": "*само 1 парче",
+      "size": "s",
+      "sizDes": "Совет за величина: ова парче е направено од материјал кој не се растегнува. Одговара на наведената величина.",
+      "color": "#064b91",
+      "material": "100% Полиестер",
+      "sostojba": "10/10",
+      "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
+      "date": "21.11.2023",
+      "type": "Ташни",
+      "accessories": "accessories"
+    },{
+      "id": "ch",
+      "img": "/tasni/kafeava.webp",
+      "title": "kafeava tasna",
+      "brand": "main days",
+      "price": 600,
+      "image1": "/productDetail/IMG_0295.jpg",
+      "image2": "/productDetail/IMG_0296.jpg",
+      "image3": "/productDetail/IMG_0297.jpg",
+      "des": "Ова е vintage парче направено од материјал со текстура, сезакопчува со патент.",
+      "quantity": "*само 1 парче",
+      "size": "s",
+      "sizDes": "Совет за величина: ова парче е направено од материјал кој не се растегнува. Одговара на наведената величина.",
+      "color": "#064b91",
+      "material": "100% Полиестер",
+      "sostojba": "10/10",
+      "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
+      "date": "17.12.2023",
+      "type": "Ташни",
+      "accessories": "accessories"
+    },
+    {
+      "id": "ci",
+      "img": "/tasni/portokalova.webp",
+      "title": "portokalova tasna",
+      "brand": "main days",
+      "price": 600,
+      "image1": "/productDetail/IMG_0295.jpg",
+      "image2": "/productDetail/IMG_0296.jpg",
+      "image3": "/productDetail/IMG_0297.jpg",
+      "des": "Ова е vintage парче направено од материјал со текстура, сезакопчува со патент.",
+      "quantity": "*само 1 парче",
+      "size": "s",
+      "sizDes": "Совет за величина: ова парче е направено од материјал кој не се растегнува. Одговара на наведената величина.",
+      "color": "#064b91",
+      "material": "100% Полиестер",
+      "sostojba": "10/10",
+      "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
+      "date": "21.11.2023",
+      "type": "Ташни",
+      "accessories": "accessories"
+    },
+    {
+      "id": "cj",
+      "img": "/tasni/rozeva.jpg",
+      "title": "rozeva tasna",
+      "brand": "main days",
+      "price": 600,
+      "image1": "/productDetail/IMG_0295.jpg",
+      "image2": "/productDetail/IMG_0296.jpg",
+      "image3": "/productDetail/IMG_0297.jpg",
+      "des": "Ова е vintage парче направено од материјал со текстура, сезакопчува со патент.",
+      "quantity": "*само 1 парче",
+      "size": "s",
+      "sizDes": "Совет за величина: ова парче е направено од материјал кој не се растегнува. Одговара на наведената величина.",
+      "color": "#064b91",
+      "material": "100% Полиестер",
+      "sostojba": "10/10",
+      "productDes": " Ова парче треба да се третира хемиски според инструкциите на етикетата.",
+      "date": "21.11.2023",
+      "type": "Ташни",
+      "accessories": "accessories"
+    }
+  ],
+  
+  "accessories": [
+    {
+      "type": "Ташни",
+      "slug": "Ташни"
+    },
+    {
+      "type": "Накит",
+      "slug": "Накит"
     }
   ]
 }

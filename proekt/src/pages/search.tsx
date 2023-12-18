@@ -17,8 +17,8 @@ const Search: NextPage<Props> = ({ data }) => {
 
     try {
       const apiUrl = searchTerm
-        ? `http://localhost:3031/products?brand_like=${searchTerm}`
-        : "http://localhost:3031/products";
+      ? `http://localhost:8000/products?brand_like=${searchTerm}`
+      : "http://localhost:8000/products";
 
       const res = await fetch(apiUrl);
       const searchData = await res.json();
@@ -37,35 +37,33 @@ const Search: NextPage<Props> = ({ data }) => {
 
   return (
     <>
-    <div className="container">
-      <div className="row">
-        <form>
-        <input type="text" ref={inputRef} className="w-75" />
-        <button
-          className="btn btn-sm m-0 p-0"
-          title="Search"
-          onClick={async (e) => {
-            e.preventDefault();
-            const result = await handleSearch();
-            console.log("Search result:", result);
-          }}
-        >
-          <img src="../Icons/search.png" alt="" />
-        </button>
-      </form>
-      </div>
-      {data.length > 0 && inputRef.current?.value && (
+      <div className="container">
         <div className="row">
-          {data.map((product) => (
-            <div className="col-4" key={product.id}>
-              <ProductCard {...product} />
-            </div>
-          ))}
+          <form>
+            <input type="text" ref={inputRef} className="w-75" />
+            <button
+              className="btn btn-sm m-0 p-0"
+              title="Search"
+              onClick={async (e) => {
+                e.preventDefault();
+                const result = await handleSearch();
+                console.log("Search result:", result);
+              }}
+            >
+              <img src="../Icons/search.png" alt="" />
+            </button>
+          </form>
         </div>
-      )}
-    </div>
-      
-      
+        {data.length > 0 && inputRef.current?.value && (
+      <div className="row">
+        {data.map((product) => (
+          <div className="col-4" key={product.id}>
+            {product.id && <ProductCard product={product} />}
+          </div>
+        ))}
+      </div>
+    )}
+      </div>
     </>
   );
 };
@@ -77,8 +75,8 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
   try {
     const apiUrl = searchTerm
-      ? `http://localhost:3031/products?brand_like=${searchTerm}`
-      : "http://localhost:3031/products";
+    ? `http://localhost:8000/products?brand_like=${searchTerm}`
+      : "http://localhost:8000/products";
 
     const res = await fetch(apiUrl);
     const data = await res.json();

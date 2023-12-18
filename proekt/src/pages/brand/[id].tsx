@@ -1,6 +1,6 @@
 import React from "react";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { BrandType, ProductType } from "@/types/types";
+import { AccessoriesType, BrandType, CategoryType, ProductType } from "@/types/types";
 import Header from "@/Components/Header";
 import Scroller from "@/Components/Scroller";
 import Footer from "@/Components/Footer";
@@ -10,13 +10,15 @@ interface Props {
   products: ProductType[];
   brand: BrandType;
   brands: BrandType[];
+  categories: CategoryType[]
+  accessories: AccessoriesType[]
 }
 
-const BrandDetail:NextPage<Props> = ({ products, brand, brands }) => {
+const BrandDetail:NextPage<Props> = ({ brand, brands, categories, products, accessories }) => {
 
   return (
     <section>
-      <Header brands={...brands} />
+      <Header brands={brands} categories={categories} accessories={accessories} />
       <Scroller />
       <div className="container">
         <div className="row fw-bold justify-content-center">
@@ -57,8 +59,8 @@ const BrandDetail:NextPage<Props> = ({ products, brand, brands }) => {
             <h4>Парчиња од брендот:</h4>
           </div>
         </div>
-        
       </div>
+      <ExtraProducts products={products}/>
       <Footer />
     </section>
   );
@@ -67,7 +69,7 @@ const BrandDetail:NextPage<Props> = ({ products, brand, brands }) => {
 export default BrandDetail;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const resBrands = await fetch("http://localhost:3031/brand");
+  const resBrands = await fetch("http://localhost:8000/brand");
   const brands: BrandType[] = await resBrands.json();
 
   const paths = brands.map((brand) => {
@@ -88,21 +90,29 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   let brand: BrandType | undefined = undefined;
 
   if (params?.id) {
-    const resBrand = await fetch(`http://localhost:3031/brand/${params.id}`);
+    const resBrand = await fetch(`http://localhost:8000/brand/${params.id}`);
     brand = await resBrand.json();
   }
 
-  const resProducts = await fetch(`http://localhost:3031/products?brand_id=${params?.id}`);
+  const resProducts = await fetch(`http://localhost:8000/products?brand_id=${params?.id}`);
   const products: ProductType[] = await resProducts.json();
 
-  const resBrands = await fetch("http://localhost:3031/brand");
+  const resBrands = await fetch("http://localhost:8000/brand");
   const brands: BrandType[] = await resBrands.json();
+
+  const resCategories = await fetch("http://localhost:8000/categories");
+  const categories: CategoryType[] = await resCategories.json();
+
+  const resAccessories = await fetch("http://localhost:8000/accessories");
+  const accessories: AccessoriesType[] = await resAccessories.json();
 
   return {
     props: {
       brand,
       products,
       brands,
+      categories,
+      accessories
     },
   };
 };

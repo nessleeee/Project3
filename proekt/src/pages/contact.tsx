@@ -3,7 +3,7 @@ import type { GetStaticProps, NextPage } from "next";
 import Header from "@/Components/Header";
 import Scroller from "@/Components/Scroller";
 import Footer from "@/Components/Footer";
-import { BrandType } from "@/types/types";
+import { AccessoriesType, BrandType, CategoryType } from "@/types/types";
 import Link from "next/link";
 
 interface ContactPageProps {
@@ -19,13 +19,16 @@ interface ContactPageProps {
 interface Props {
   data: ContactPageProps;
   brands: BrandType[];
+  categories: CategoryType[];
+  accessories: AccessoriesType[];
 
 }
 
-const Contact: NextPage<Props> = ({ data, brands }) => {
+const Contact: NextPage<Props> = ({ data, brands, categories,
+  accessories, }) => {
   return (
     <section className="bg0">
-      <Header brands={...brands}/>
+      <Header brands={brands} categories={categories} accessories={accessories}/>
       <Scroller/>
       <div className="container">
         <div className="row text-center fw-bold">
@@ -66,16 +69,24 @@ const Contact: NextPage<Props> = ({ data, brands }) => {
 export default Contact;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch("http://localhost:3031/contact_page");
+  const res = await fetch("http://localhost:8000/contact_page");
   const data: ContactPageProps = await res.json();
 
-  const resBrands = await fetch("http://localhost:3031/brand");
+  const resBrands = await fetch("http://localhost:8000/brand");
   const brands: BrandType[] = await resBrands.json();
+
+  const resCategories = await fetch("http://localhost:8000/categories");
+  const categories: CategoryType[] = await resCategories.json();
+
+  const resAccessories = await fetch("http://localhost:8000/accessories");
+  const accessories: AccessoriesType[] = await resAccessories.json();
 
   return {
     props: {
       data,
       brands,
+      categories,
+      accessories,
     },
   };
 };

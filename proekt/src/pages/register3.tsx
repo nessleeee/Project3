@@ -21,48 +21,39 @@ const RegisterThree = () => {
     }
   };
 
-  let isFormValid = false;
-if (address && phone && bio) {
-  isFormValid = true;
-};
-  const formSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+  const isFormValid = address && phone && bio;
+
+  const formSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+
     if (!isFormValid) {
       console.log("Form is not valid");
       return;
     }
-  
+
     try {
-      const response = await fetch("https://igraliste-35324-default-rtdb.europe-west1.firebasedatabase.app/register3.json", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: uuid(),
-          address,
-          phone,
-          bio,
-          selectedImage,
-        }),
-      });
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-  
-      const responseData = await response.json();
-      console.log("User registration successful:", responseData);
-  
+      const storedUsers = localStorage.getItem('registeredUsers');
+      const users: Record<string, any> = storedUsers ? JSON.parse(storedUsers) : {};
+
+      const userId = uuid();
+      users[userId] = {
+        id: userId,
+        address,
+        phone,
+        bio,
+        selectedImage,
+      };
+
+      localStorage.setItem('registeredUsers', JSON.stringify(users));
+
       setAddress("");
       setPhone("");
       setBio("");
       setSelectedImage("");
-      
+
       router.push("/profile");
     } catch (error) {
-      console.error("Error registering user:");
+      console.error("Error registering user:", error);
     }
   };
 
@@ -134,7 +125,7 @@ if (address && phone && bio) {
               Телефонски број
             </label>
             <input
-             type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+             type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"
               className="form-control bg-transparent"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}

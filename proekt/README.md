@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+json-server --watch db.json --port 8000  - for server
+
 First, run the development server:
 
 ```bash

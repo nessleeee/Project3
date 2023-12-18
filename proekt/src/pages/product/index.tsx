@@ -2,17 +2,18 @@ import Footer from "@/Components/Footer";
 import Header from "@/Components/Header";
 import ProductCard from "@/Components/Product/ProductCard";
 import Scroller from "@/Components/Scroller";
-import { BrandType, CategoryType, ProductType } from "@/types/types";
-import { GetServerSideProps, GetStaticProps, NextPage } from "next";
+import { AccessoriesType, BrandType, CategoryType, ProductType } from "@/types/types";
+import { GetServerSideProps, NextPage } from "next";
 import React, { useState } from "react";
 
 interface Props {
   data: ProductType[];
   brands: BrandType[];
   categories: CategoryType[];
+  accessories: AccessoriesType[];
 }
 
-const ProductPage: NextPage<Props> = ({ data, brands, categories }) => {
+const ProductPage: NextPage<Props> = ({ data, brands, categories, accessories }) => {
   const [sortOrder, setSortOrder] = useState<"new" | "old" | "">("");
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -45,7 +46,7 @@ const ProductPage: NextPage<Props> = ({ data, brands, categories }) => {
   };
   return (
     <section>
-      <Header brands={brands} categories={categories}  />
+      <Header brands={brands} categories={categories} accessories={accessories} />
       <Scroller />
       <div className="row justify-content-center my-4">
         <div className="col-1">
@@ -162,29 +163,40 @@ const ProductPage: NextPage<Props> = ({ data, brands, categories }) => {
 
 export default ProductPage;
 
-export const getServerSideProps: GetServerSideProps = async ({query}) => {
-  
-  const resCategories = await fetch("http://localhost:3031/categories");
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const resCategories = await fetch("http://localhost:8000/categories");
   const categories: CategoryType[] = await resCategories.json();
 
-  const resBrands = await fetch("http://localhost:3031/brand");
+  const resAccessories = await fetch("http://localhost:8000/accessories");
+  const accessories: AccessoriesType[] = await resAccessories.json();
+ 
+
+  const resBrands = await fetch("http://localhost:8000/brand");
   const brands: BrandType[] = await resBrands.json();
 
+  let resProducts: Response;
 
-let resProducts: Response;
-if(query.category){
-  resProducts = await fetch(`http://localhost:3031/products?type_like${query.category}`);
-} else {
-  resProducts = await fetch("http://localhost:3031/products");
-}
-const data: ProductType[] = await resProducts.json();
+  if (query.accessories) {
+    resProducts = await fetch(`http://localhost:8000/products?accessories=${query.accessories}`);
+  } else if (query.category) {
+    resProducts = await fetch(`http://localhost:8000/products?type_like=${query.category}`);
+  } else if (query.accessory) {
+    resProducts = await fetch(`http://localhost:8000/products?type_like=${query.accessory}`);
+  } else {
+    if (query.selectedSortOrder === 'new') {
+      resProducts = await fetch("http://localhost:8000/products?_sort=date&_order=desc");
+    } else {
+      resProducts = await fetch("http://localhost:8000/products");
+    }
+  }
 
-
+  const data: ProductType[] = await resProducts.json();
 
   return {
     props: {
       data,
       categories,
+      accessories,
       brands,
     },
   };

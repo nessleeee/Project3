@@ -1,20 +1,24 @@
 import Link from "next/link";
 import Image from "next/image";
 import React, { useState } from "react";
-import { BrandType, CategoryType, ProductType } from "@/types/types";
+import { AccessoriesType, BrandType, CategoryType } from "@/types/types";
 import router from "next/router";
 
 interface Props {
   brands: BrandType[];
   categories: CategoryType[];
+  accessories: AccessoriesType[];
 }
 
-const Header: React.FC<Props> = ({ brands, categories }) => {
+const Header: React.FC<Props> = ({ brands, categories, accessories }) => {
+  console.log("Accessories in Header:", accessories);
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
+
+  const isLoggedIn = false; 
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary theNav py-0">
@@ -57,7 +61,12 @@ const Header: React.FC<Props> = ({ brands, categories }) => {
         >
           <ul className="navbar-nav ml-auto">
             <li className="nav-item my-1">
-              <a className="nav-link" href="#">
+              <a onClick={() => {
+                router.push({
+                  pathname: '/product',
+                  query: { selectedSortOrder: 'new' },
+                });
+              }} className="nav-link" href="#">
                 <span className="h5">
                   <u>
                     <em>Ново</em>
@@ -83,9 +92,6 @@ const Header: React.FC<Props> = ({ brands, categories }) => {
                       onClick={() => {
                         router.push({
                           pathname: "/product",
-                          query: {
-                            sort: "products",
-                          },
                         });
                       }}
                     >
@@ -100,46 +106,24 @@ const Header: React.FC<Props> = ({ brands, categories }) => {
                     Види ги сите
                   </a>
                 </li>
-                {categories.map((category) => (
+                {categories &&
+                  categories.map((category) => (
                     <li
+                      key={category.slug}
+                      className="my-4 h5"
+                      style={{ cursor: "pointer" }}
                       onClick={() => {
                         router.push({
                           pathname: "/product",
                           query: {
-                          category: category.slug,
+                            category: category.slug,
                           },
                         });
                       }}
                     >
-                        {category.type}
+                      {category.type}
                     </li>
                   ))}
-                {/* <li>
-                  <a className="dropdown-item" href="#">
-                    Панталони
-                  </a>
-                </li>
-                <li></li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Здолништа / шорцеви
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Фустани
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Палта и јакни
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Долна облека
-                  </a>
-                </li> */}
               </ul>
             </li>
 
@@ -155,7 +139,10 @@ const Header: React.FC<Props> = ({ brands, categories }) => {
               </a>
               <ul className="dropdown-menu">
                 <li className="nav-item p-0 m-0">
-                  <Link className="dropdown-item text-gold p-0 m-0" href="/brand">
+                  <Link
+                    className="dropdown-item text-gold p-0 m-0"
+                    href="/brand"
+                  >
                     <span className="p-0 m-0">
                       <Image
                         src="/sparks-elements-and-symbols-isolated-on-white-background-free-vector 2.png"
@@ -169,8 +156,8 @@ const Header: React.FC<Props> = ({ brands, categories }) => {
                   </Link>
                 </li>
                 {brands.map((brand) => (
-                  <Link key={brand.id} href={`/brand/${brand.id}` }>
-                    <li className="my-2">{brand.name}</li>
+                  <Link key={brand.id} href={`/brand/${brand.id}`}>
+                    <li className="my-4 h5">{brand.name}</li>
                   </Link>
                 ))}
               </ul>
@@ -188,7 +175,18 @@ const Header: React.FC<Props> = ({ brands, categories }) => {
               </a>
               <ul className="dropdown-menu mb-5">
                 <li className="nav-item p-0 m-0">
-                  <a className="dropdown-item text-gold p-0 m-0" href="#">
+                  <a
+                    onClick={() => {
+                      router.push({
+                        pathname: "/product",
+                        query: {
+                          accessories: "accessories",
+                        },
+                      });
+                    }}
+                    className="dropdown-item text-gold p-0 m-0"
+                    href="#"
+                  >
                     <span className="p-0 m-0">
                       <Image
                         src="/sparks-elements-and-symbols-isolated-on-white-background-free-vector 2.png"
@@ -201,17 +199,24 @@ const Header: React.FC<Props> = ({ brands, categories }) => {
                     Види ги сите
                   </a>
                 </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Ташни
-                  </a>
-                </li>
-                <li></li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Накит
-                  </a>
-                </li>
+                {accessories &&
+                  accessories.map((accessory) => (
+                    <li
+                      key={accessory.slug}
+                      className="mt-4 h5"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        router.push({
+                          pathname: "/product",
+                          query: {
+                            accessory: accessory.slug,
+                          },
+                        });
+                      }}
+                    >
+                      {accessory.type}
+                    </li>
+                  ))}
               </ul>
             </li>
             <li className="nav-item my-1">
@@ -250,20 +255,33 @@ const Header: React.FC<Props> = ({ brands, categories }) => {
                 <span className="mx-2 box-font">Омилени</span>
               </Link>
             </li>
+            {isLoggedIn ? (
+          <>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <Link className="nav-link" href="/profile">
                 <span className="box-i">
                   <i className="fa-regular fa-user fa-lg"></i>
                 </span>
-                <Link href="/register">
-                  <span className="mx-2 box-font">Регистрирај се</span>
+                <span className="mx-2 box-font">Мој Профил</span>
+              </Link>
+            </li>
+          </>
+        ) : (
+          <>
+            <li className="nav-item my-2">
+                <span className="box-i">
+                  <i className="fa-regular fa-user fa-lg"></i>
+                </span>
+            <Link href="/register">
+                  <span className="mx-1 box-font">Регистрирај се</span>
                 </Link>
                 /
                 <Link href="/login">
-                  <span className="mx-2 box-font">Логирај се</span>
+                  <span className="mx-1 box-font">Логирај се</span>
                 </Link>
-              </a>
             </li>
+          </>
+        )}
           </ul>
         </div>
       </div>

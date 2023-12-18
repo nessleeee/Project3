@@ -1,8 +1,9 @@
 import Link from "next/link";
+import router from "next/router";
 import React, { ChangeEvent, useState } from "react";
-import {v4 as uuid} from "uuid"
+import { v4 as uuid } from "uuid";
 
-const OrderForm = () => {
+const OrderFormPage = () => {
   const [orderSubmitted, setOrderSubmitted] = useState(false);
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [firstName, setFirstName] = useState("");
@@ -13,83 +14,56 @@ const OrderForm = () => {
   const [agreeTermsTwo, setAgreeTermsTwo] = useState(false);
 
   let isFormValid = false;
-
-  if (firstName && lastName && email && phone && addresse) {
+  if (firstName && lastName && email && addresse && phone && agreeTerms) {
     isFormValid = true;
   }
+  const formSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-
-  if (!isFormValid) {
-    console.log("Form is not valid");
-    return;
-  }
-
-  try {
-    const response = await fetch("https://igraliste-35324-default-rtdb.europe-west1.firebasedatabase.app/naracka.json", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: uuid(),
-        name: firstName,
-        sureName: lastName,
-        email,
-        phone,
-        addresse,
-        agreeTerms, 
-        agreeTermsTwo,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+    if (!isFormValid) {
+      console.log("Form is not valid");
+      return;
     }
 
-    const responseData = await response.json();
-    console.log("User registration successful:", responseData);
+    try {
+      // Retrieve existing orders from local storage
+      const existingOrders = JSON.parse(localStorage.getItem("orders") || "[]");
 
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPhone("");
-    setAddresse("");
-    setAgreeTerms(false);
-    setAgreeTermsTwo(false);
+      // Create a new order
+      const newOrder = {
+        id: uuid(),
+        firstName,
+        lastName,
+        email,
+        addresse,
+        phone,
+        agreeTerms,
+      };
 
+      const updatedOrders = [...existingOrders, newOrder];
+      localStorage.setItem("orders", JSON.stringify(updatedOrders));
 
-    setOrderSubmitted(true);
-  } catch (error) {
-    console.error("Error registering user:");
-  }
-};
+      console.log("Order placed successfully:", newOrder);
 
-  
+      setOrderSubmitted(true);
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPhone("");
+      setAgreeTerms(false);
+      setAgreeTermsTwo(false);
+    } catch (error) {
+      console.error("Error placing order:", error);
+    }
+  };
+
   const agreeTermsChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setAgreeTerms(e.target.checked);
   };
-  const firstNameChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setFirstName(e.target.value);
-  };
-  const lastNameChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setLastName(e.target.value);
-  };
-  const phoneChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setPhone(e.target.value);
-  };
- 
-  const emailChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-  const addresseChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setAddresse(e.target.value);
-  };
+
   const agreeTermsChangeHandlerTwo = (e: ChangeEvent<HTMLInputElement>) => {
     setAgreeTermsTwo(e.target.checked);
   };
-
 
   return (
     <section>
@@ -109,7 +83,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         </div>
         <div className="row justify-content-center">
           <div className="col-10">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={formSubmitHandler}>
               <div className="form-check d-flex justify-content-center mb-2">
                 <input
                   className="form-check-input me-2"
@@ -127,21 +101,22 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                 </label>
               </div>
 
-              <div className="form-outline mb-1">
+              <div className="form-outline mb-4">
                 <label className="form-label" htmlFor="form3Example1cg">
                   Име*
                 </label>
                 <input
-                  type="text"
+                  type="name"
                   id="form3Example1cg"
-                  className="form-control bg-transparent bg-pink"
+                  className="form-control bg-transparent"
                   name="name"
                   value={firstName}
-                  onChange={firstNameChangeHandler}
+                  onChange={(e) => setFirstName(e.target.value)}
                   placeholder="Enter your name..."
                 />
               </div>
-              <div className="form-outline mb-1">
+
+              <div className="form-outline mb-4">
                 <label className="form-label" htmlFor="form3Example2cg">
                   Презиме
                 </label>
@@ -151,60 +126,62 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                   className="form-control bg-transparent"
                   name="sureName"
                   value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   placeholder="Enter your Last name..."
-                  onChange={lastNameChangeHandler}
                 />
               </div>
-              <div className="form-outline mb-1">
-                <label className="form-label" htmlFor="form3Example4cg">
+
+              <div className="form-outline mb-4">
+                <label className="form-label" htmlFor="form3Example5cg">
                   Адреса на живеење*
                 </label>
                 <input
                   type="text"
-                  id="form3Example4cg"
+                  id="form3Example5cg"
                   className="form-control bg-transparent"
-                  name="text"
                   value={addresse}
-                  placeholder="Enter your addresse..."
-                  onChange={addresseChangeHandler}
+                  onChange={(e) => setAddresse(e.target.value)}
                 />
-                <div className="form-outline mb-1">
-                  <label className="form-label" htmlFor="form3Example5cdg">
-                    Телефонски број*
-                  </label>
-                  <input
-                    type="phone"
-                    id="form3Example5cg"
-                    className="form-control bg-transparent"
-                    name="phone"
-                    value={phone}
-                    placeholder="Confirm your password..."
-                    onChange={phoneChangeHandler}
-                  />
-                </div>
               </div>
-              <div className="form-outline mb-1">
+
+              <div className="form-outline mb-4">
+                <label className="phone" htmlFor="form3Example6cdg">
+                  Телефонски број*
+                </label>
+                <input
+                  type="tel"
+                  id="form3Example6cdg"
+                  name="phone"
+                  pattern="[0-9]{3}[0-9]{3}[0-9]{3}"
+                  className="form-control bg-transparent"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+
+              <div className="form-outline mb-4">
                 <label className="form-label" htmlFor="form3Example3cg">
                   Емаил адреса
                 </label>
                 <input
-                  type="emai"
+                  type="email"
                   id="form3Example3cg"
                   className="form-control bg-transparent"
                   name="email"
-                    value={email}
-                    placeholder="Enter your email..."
-                    onChange={emailChangeHandler}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email..."
                 />
               </div>
+
               <div className="form-check d-flex justify-content-center mb-2">
                 <input
                   className="form-check-input me-2"
                   type="checkbox"
                   id="form2Example3cg"
                   name="agreeTerms"
-                    checked={agreeTermsTwo}
-                    onChange={agreeTermsChangeHandlerTwo}
+                  checked={agreeTermsTwo}
+                  onChange={agreeTermsChangeHandlerTwo}
                 />
                 <label
                   className="form-check-label small"
@@ -214,11 +191,12 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                   промоции на мојата емаил адреса.
                 </label>
               </div>
+
               <div className="d-flex mx-3 my-4">
                 <button type="submit" className="btn gold btn-block w-75">
                   Нарачај
                 </button>
-                <button type="submit" className="btn  btn-block w-75">
+                <button  onClick={() => router.push("/order")} type="submit" className="btn  btn-block w-75">
                   Откажи
                 </button>
               </div>
@@ -257,11 +235,13 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
                 </div>
                 <div className="row">
                   <div className="col">
-                    <button type="button" className="btn gold px-5 my-2">
-                      <span style={{ fontSize: "17px", fontWeight: "600" }}>
-                        Продолжи
-                      </span>
-                    </button>
+                    <Link href="/product">
+                      <button type="button" className="btn gold px-5 my-2">
+                        <span style={{ fontSize: "17px", fontWeight: "600" }}>
+                          Продолжи
+                        </span>
+                      </button>
+                    </Link>
                   </div>
                 </div>
                 <div className="row pb-2">
@@ -280,4 +260,4 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   );
 };
 
-export default OrderForm;
+export default OrderFormPage;

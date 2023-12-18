@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -15,31 +15,31 @@ const LoginPage = () => {
     password: string
   }
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const loginUser = (e: React.FormEvent) => {
     e.preventDefault();
-
   
     try {
-      const response = await fetch("https://igraliste-35324-default-rtdb.europe-west1.firebasedatabase.app/users.json");
+      const storedUsers = localStorage.getItem('registeredUsers');
+      if (!storedUsers) {
+        setError('No registered users found. Please register first.');
+        return;
+      }
   
-      // if (!response.ok) {
-      //   throw new Error(`HTTP error! Status: ${response.status}`);
-      // }
+      const users: Record<string, string> = JSON.parse(storedUsers);
   
-      const userData: Record<string, UserType> = await response.json();
-      
-      const user = Object.values(userData).find((user) => user.email === email && user.password === password);
-  
-      if (user) {
-        router.push("/profile");
+      if (users[email] && users[email] === password) {
+        // Successful login
+        router.push('/profile');
       } else {
-        setError("Invalid credentials. User does not exist.");
+        setError('Invalid credentials. User does not exist.');
       }
     } catch (error) {
-      console.error("Error fetching user data:", error);
-      setError("Error fetching user data. Please try again later.");
+      console.error('Error fetching user data:', error);
+      setError('Error fetching user data. Please try again later.');
     }
   };
+  
+
   return (
     <section className="bg-pink pt-5">
       <div className="container-fluid pt-5">
@@ -51,7 +51,7 @@ const LoginPage = () => {
 
         <div className="row justify-content-center">
           <div className="col-9">
-            <form onSubmit={handleLogin}>
+            <form onSubmit={loginUser}>
               <div className="form-outline mb-4">
                 <label className="form-label " htmlFor="form2Example1">
                   Email адреса

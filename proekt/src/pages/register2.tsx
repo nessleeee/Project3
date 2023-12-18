@@ -1,113 +1,108 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, ChangeEvent } from "react";
-import {v4 as uuid} from "uuid"
 
 const RegisterTwo = () => {
   const router = useRouter();
-  
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repPassword, setRepPassword] = useState("");
-  const [agreeTerms, setAgreeTerms] = useState(false); 
+  const [agreeTerms, setAgreeTerms] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  
 
   const isFirstNameValid = firstName.trim() !== "";
-  
+
   const isLastNameValid = lastName.trim() !== "";
-  
+
   const isEmailValid =
-  email.trim() !== "" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    email.trim() !== "" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
   const isPasswordValid = password.trim() !== "";
 
   const isRepPasswordValid = repPassword.trim() !== "";
 
-
-
-let isFormValid = false;
-if (isFirstNameValid && isLastNameValid && isEmailValid && isPasswordValid && isRepPasswordValid) {
-  isFormValid = true;
-};
-
-const formSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-
-  if (!isFormValid) {
-    console.log("Form is not valid");
-    return;
+  let isFormValid = false;
+  if (
+    isFirstNameValid &&
+    isLastNameValid &&
+    isEmailValid &&
+    isPasswordValid &&
+    isRepPasswordValid
+  ) {
+    isFormValid = true;
   }
 
-  try {
-    const response = await fetch("https://igraliste-35324-default-rtdb.europe-west1.firebasedatabase.app/register2.json", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: uuid(),
-        name: firstName,
-        sureName: lastName,
-        email,
-        password,
-        repPassword,
-        agreeTerms, 
-      }),
-    });
+  const registerUser = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+    try {
+      const storedUsers = localStorage.getItem("registeredUsers");
+      const users: Record<string, string> = storedUsers
+        ? JSON.parse(storedUsers)
+        : {};
+
+      if (users[email]) {
+        setError("User with this email already exists.");
+        return;
+      }
+
+      users[email] = password;
+      localStorage.setItem("registeredUsers", JSON.stringify(users));
+
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPassword("");
+      setRepPassword("");
+      setAgreeTerms(false);
+
+      router.push("/register3");
+    } catch (error) {
+      console.error("Error registering user:", error);
+      setError("Error registering user. Please try again later.");
     }
+  };
 
-    const responseData = await response.json();
-    console.log("User registration successful:", responseData);
-
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPassword("");
-    setRepPassword("");
-    setAgreeTerms(false);
-
-    router.push("/register3");
-  } catch (error) {
-    console.error("Error registering user:");
-  }
-};
-
-const firstNameChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-  setFirstName(e.target.value);
-};
-const lastNameChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-  setLastName(e.target.value);
-};
-const emailChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-  setEmail(e.target.value);
-};
-const passwordChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-  setPassword(e.target.value);
-};
-const repPasswordChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-  setRepPassword(e.target.value);
-};
-const agreeTermsChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-  setAgreeTerms(e.target.checked);
-};
+  const firstNameChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setFirstName(e.target.value);
+  };
+  const lastNameChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setLastName(e.target.value);
+  };
+  const emailChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+  const passwordChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+  const repPasswordChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setRepPassword(e.target.value);
+  };
+  const agreeTermsChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setAgreeTerms(e.target.checked);
+  };
 
   return (
     <section className="bg-pink pt-5">
       <div className="container-fluid pt-4">
         <div className="row justify-content-center py-4">
           <div className="col-6">
-            <Link href={'/'}>
-            <img className="log-img mx-auto" src="../Icons/Group 1.png" alt="" />
+            <Link href={"/"}>
+              <img
+                className="log-img mx-auto"
+                src="../Icons/Group 1.png"
+                alt=""
+              />
             </Link>
           </div>
         </div>
         <div className="row justify-content-center">
           <div className="col-10">
-            <form onSubmit={formSubmitHandler}>
+            <form onSubmit={registerUser}>
               <div className="form-outline mb-1">
                 <label className="form-label" htmlFor="form3Example1cg">
                   Име
@@ -120,7 +115,6 @@ const agreeTermsChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
                   value={firstName}
                   onChange={firstNameChangeHandler}
                   placeholder="Enter your name..."
-
                 />
               </div>
               <div className="form-outline mb-1">
@@ -184,10 +178,9 @@ const agreeTermsChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
                   className="form-check-input me-2"
                   type="checkbox"
                   id="form2Example3cg"
-                  name="agreeTerms"   
+                  name="agreeTerms"
                   checked={agreeTerms}
                   onChange={agreeTermsChangeHandler}
-                  
                 />
                 <label
                   className="form-check-label small"
@@ -197,11 +190,7 @@ const agreeTermsChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
                 </label>
               </div>
               <div className="d-flex mx-3 my-4">
-                <button
-                  type="submit"
-                  className="btn btn-dark btn-block w-75"
-                  
-                >
+                <button type="submit" className="btn btn-dark btn-block w-75">
                   Регистрирај се
                 </button>
               </div>

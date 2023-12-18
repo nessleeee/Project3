@@ -1,4 +1,5 @@
 import Link from "next/link";
+import router from "next/router";
 import { ChangeEvent, useState } from "react";
 import { v4 as uuid } from "uuid";
 
@@ -8,7 +9,7 @@ const ProfilePage = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [address, setAddress] = useState("");
+  const [addresse, setAddresse] = useState("");
   const [phone, setPhone] = useState("");
   const [bio, setBio] = useState("");
   const [agreeTerms, setAgreeTerms] = useState(false);
@@ -30,10 +31,10 @@ const ProfilePage = () => {
   };
 
   let isFormValid = false;
-  if (selectedImage && firstName && lastName && email && password && address && phone && bio && agreeTerms) {
+  if (selectedImage && firstName && lastName && email && password && addresse && phone && bio && agreeTerms) {
     isFormValid = true;
   }
-  const formSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+  const formSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!isFormValid) {
@@ -42,49 +43,40 @@ const ProfilePage = () => {
     }
 
     try {
-      const response = await fetch(
-        "https://igraliste-35324-default-rtdb.europe-west1.firebasedatabase.app/profie.json",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: uuid(),
-            selectedImage,
-            firstName, 
-            lastName, 
-            email, 
-            password, 
-            address, 
-            phone,
-            bio, 
-            agreeTerms
-          }),
-        }
-      );
+      const existingProfiles = JSON.parse(localStorage.getItem("userProfiles") || "[]");
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+      const newProfile = {
+        id: uuid(),
+        selectedImage,
+        firstName,
+        lastName,
+        email,
+        password,
+        addresse,
+        phone,
+        bio,
+        agreeTerms,
+      };
 
-      const responseData = await response.json();
-      console.log("User registration successful:", responseData);
-    //   setSelectedImage("");
-    //   setFirstName("");
-    //   setLastName("");
-    //   setEmail("");
-    //   setPassword("");
-    //   setAddress("");
-    //   setPhone("");
-    //   setBio("");
-    //   setAgreeTerms(false);
+      const updatedProfiles = [...existingProfiles, newProfile];
+      localStorage.setItem("userProfiles", JSON.stringify(updatedProfiles));
+      console.log("User profile saved:", newProfile);
 
+      /*
+      setSelectedImage("");
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPassword("");
+      setAddress("");
+      setPhone("");
+      setBio("");
+      setAgreeTerms(false);
+      */
     } catch (error) {
-      console.error("Error registering user:");
+      console.error("Error saving user profile:", error);
     }
   };
-
   return (
     <section className="bg-pink pt-4">
       <div className="container-fluid pt-3">
@@ -208,8 +200,8 @@ const ProfilePage = () => {
               type="text"
               id="form3Example5cg"
               className="form-control bg-transparent"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              value={addresse}
+              onChange={(e) => setAddresse(e.target.value)}
             />
           </div>
 
@@ -221,7 +213,7 @@ const ProfilePage = () => {
               type="tel"
               id="form3Example6cdg"
               name="phone"
-              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}"
               className="form-control bg-transparent"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}

@@ -7,6 +7,7 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+
   return (
     <Link href={`/product/${product.id}`}>
     <div className="card bg-transparent border-0 " >

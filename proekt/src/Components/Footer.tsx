@@ -4,26 +4,23 @@ import React, { useState } from "react";
 const Footer = () => {
   const [email, setEmail] = useState("");
 
-  const handleSubscribe = async (e: { preventDefault: () => void }) => {
+  const handleSubscribe = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    setEmail("");
-
-    const res = await fetch(
-      "https://igraliste-35324-default-rtdb.europe-west1.firebasedatabase.app/subscribers.json",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      }
-    );
-    await res.json();
-    if (res.ok) {
-      alert("success");
-    } else {
-      alert("Failed to subscribe");
+  
+    const storedEmails = localStorage.getItem("subscribedEmails");
+    const emails = storedEmails ? JSON.parse(storedEmails) : [];
+    
+    if (emails.includes(email)) {
+      alert("Already subscribed");
+      return;
     }
+  
+    emails.push(email);
+    localStorage.setItem("subscribedEmails", JSON.stringify(emails));
+  
+    setEmail("");
+  
+    alert("Success");
   };
 
   return (

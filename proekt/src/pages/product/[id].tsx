@@ -3,7 +3,7 @@ import Header from "@/Components/Header";
 import Accordion from "@/Components/ProductDetail/Accordion";
 import ExtraProducts from "@/Components/ProductDetail/ExtraProducts";
 import Scroller from "@/Components/Scroller";
-import { BrandType, InfoBoxType, ProductType } from "@/types/types";
+import { AccessoriesType, BrandType, CategoryType, InfoBoxType, ProductType } from "@/types/types";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import router from "next/router";
 import { useState } from "react";
@@ -13,6 +13,8 @@ interface Props {
   product: ProductType;
   brands: BrandType[];
   info: InfoBoxType[];
+  categories: CategoryType[];
+  accessories: AccessoriesType[];
 }
 
 const ProductDetail: NextPage<Props> = ({
@@ -20,6 +22,8 @@ const ProductDetail: NextPage<Props> = ({
   brands,
   info,
   product,
+  categories,
+  accessories,
 }) => {
   const [activeImage, setActiveImage] = useState(product.img);
   const [quantity, setQuantity] = useState(1);
@@ -80,7 +84,7 @@ const ProductDetail: NextPage<Props> = ({
 
   return (
     <>
-      <Header brands={...brands} />
+      <Header brands={brands} categories={categories} accessories={accessories} />
       <Scroller />
       <div className="container">
         <div className="row justify-content-center">
@@ -233,7 +237,7 @@ const ProductDetail: NextPage<Props> = ({
 
         <div className="row justify-content-center">
           <div className="col-10 my-3">
-            <Accordion info={...info} />
+            <Accordion info={info} />
           </div>
         </div>
         <div className="row justify-content-center">
@@ -241,7 +245,7 @@ const ProductDetail: NextPage<Props> = ({
             <h2>Extra Products</h2>
           </div>
 
-          <ExtraProducts products={...products} />
+          <ExtraProducts products={products} />
         </div>
         <div className="fixed-buttons">
           <button className="btn-favorite" onClick={handleToggleFavorite}>
@@ -291,21 +295,27 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   let product: ProductType | undefined = undefined;
 
-  const resProducts = await fetch("http://localhost:3031/products");
+  const resProducts = await fetch("http://localhost:8000/products");
   const products: ProductType[] = await resProducts.json();
 
   if (params?.id) {
     const resProducts = await fetch(
-      `http://localhost:3031/products/${params.id}`
+      `http://localhost:8000/products/${params.id}`
     );
     product = await resProducts.json();
   }
 
-  const resInfo = await fetch("http://localhost:3031/info-box");
+  const resInfo = await fetch("http://localhost:8000/info-box");
   const info: InfoBoxType[] = await resInfo.json();
 
-  const resBrands = await fetch("http://localhost:3031/brand");
+  const resBrands = await fetch("http://localhost:8000/brand");
   const brands: BrandType[] = await resBrands.json();
+
+  const resCategories = await fetch("http://localhost:8000/categories");
+  const categories: CategoryType[] = await resCategories.json();
+
+  const resAccessories = await fetch("http://localhost:8000/accessories");
+  const accessories: AccessoriesType[] = await resAccessories.json();
 
   return {
     props: {
@@ -313,6 +323,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       products,
       info,
       brands,
+      categories,
+      accessories,
     },
   };
 };

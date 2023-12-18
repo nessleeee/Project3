@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { GetStaticProps, NextPage } from "next";
-import { AboutPageType, BrandType } from "@/types/types";
+import { AboutPageType, AccessoriesType, BrandType, CategoryType } from "@/types/types";
 import OurStory from "@/Components/About/OurStory";
 import OurWork from "@/Components/About/OurWork";
 import Header from "@/Components/Header";
@@ -10,15 +10,18 @@ import Footer from "@/Components/Footer";
 interface Props {
   data: AboutPageType;
   brands: BrandType[];
+  categories: CategoryType[];
+  accessories: AccessoriesType[];
 
 }
 
-const AboutPage: NextPage<Props> = ({ data, brands }) => {
+const AboutPage: NextPage<Props> = ({ data, brands, categories,
+  accessories, }) => {
   const [activeTab, setActiveTab] = useState("story");
 
   return (
     <section>
-      <Header brands={...brands}/>
+      <Header brands={brands} categories={categories} accessories={accessories} />
       <Scroller/>
       <div className="container">
         <div className="row text-center fw-bold">
@@ -59,15 +62,24 @@ const AboutPage: NextPage<Props> = ({ data, brands }) => {
 export default AboutPage;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch("http://localhost:3031/about_page");
+  const res = await fetch("http://localhost:8000/about_page");
   const data: AboutPageType = await res.json();
 
-  const resBrands = await fetch("http://localhost:3031/brand");
+  const resBrands = await fetch("http://localhost:8000/brand");
     const brands: BrandType[] = await resBrands.json();
+
+    const resCategories = await fetch("http://localhost:8000/categories");
+  const categories: CategoryType[] = await resCategories.json();
+
+  const resAccessories = await fetch("http://localhost:8000/accessories");
+  const accessories: AccessoriesType[] = await resAccessories.json();
+  
   return {
     props: {
       data,
       brands,
+      categories,
+    accessories,
 
     },
   };
