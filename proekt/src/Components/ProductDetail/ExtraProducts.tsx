@@ -30,8 +30,8 @@ const ExtraProducts: React.FC<ExtraProductsProps> = ({ products }) => {
           </div>
         ))}
       </div>
-      <div className="row">
-        <div className="col">
+      <div className="row justify-content-center">
+        <div className="col-9">
           <nav aria-label="Navigation page">
             <ul className="pagination justify-content-center">
               <li

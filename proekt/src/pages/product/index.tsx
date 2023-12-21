@@ -50,9 +50,6 @@ const ProductPage: NextPage<Props> = ({ data, brands, categories, accessories })
       <Scroller />
       <div className="row justify-content-center my-4">
         <div className="col-1">
-          <button className="btn px-2 py-0 bt-n">
-            <img src="/Icons/fluent_search-48-regular.svg" alt="" />
-          </button>
         </div>
         <div className="col-5" style={{ paddingRight: "0" }}>
           <p className="p-0 m-0 small text-end">Подреди според</p>

@@ -275,7 +275,7 @@ const ProductDetail: NextPage<Props> = ({
 export default ProductDetail;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const resProducts = await fetch("http://localhost:3031/products");
+  const resProducts = await fetch("http://localhost:8000/products");
   const products: ProductType[] = await resProducts.json();
 
   const paths = products.map((product) => {

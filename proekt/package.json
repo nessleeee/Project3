@@ -24,6 +24,7 @@
     "@types/uuid": "^9.0.7",
     "eslint": "^8",
     "eslint-config-next": "^14.0.4",
+    "eslint-config-prettier": "^9.1.0",
     "typescript": "^5"
   },
   "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",

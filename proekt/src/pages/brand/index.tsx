@@ -19,8 +19,8 @@ const ProductPage: NextPage<Props> = ({  brands, categories, accessories }) => {
       <Scroller />
       <div className="row justify-content-center mt-4">
         {brands.map((brand) => (
-            <div className="col-5">
-                <Link key={brand.id} href={`/brand/${brand.id}` }>
+            <div key={brand.id} className="col-5">
+              <Link  href={`/brand/${brand.id}` }>
             <div className="card">
               <img style={{width:"100%", height:"155px", objectFit: "cover"}} src={brand.img} className="card-img-top " alt={brand.name} />
               <div className="card-body">

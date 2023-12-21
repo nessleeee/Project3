@@ -59,8 +59,12 @@ const BrandDetail:NextPage<Props> = ({ brand, brands, categories, products, acce
             <h4>Парчиња од брендот:</h4>
           </div>
         </div>
-      </div>
+        <div className="row justify-content-center">
+          <div className="col-11">
       <ExtraProducts products={products}/>
+          </div>
+          </div>
+      </div>
       <Footer />
     </section>
   );
