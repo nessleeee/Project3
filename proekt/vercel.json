@@ -1,0 +1,5 @@
+{
+    "version": 2,
+    "builds": [{ "src": "vercel-build", "use": "@now/next" }]
+  }
+  
