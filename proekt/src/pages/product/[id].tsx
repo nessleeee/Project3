@@ -3,7 +3,13 @@ import Header from "@/Components/Header";
 import Accordion from "@/Components/ProductDetail/Accordion";
 import ExtraProducts from "@/Components/ProductDetail/ExtraProducts";
 import Scroller from "@/Components/Scroller";
-import { AccessoriesType, BrandType, CategoryType, InfoBoxType, ProductType } from "@/types/types";
+import {
+  AccessoriesType,
+  BrandType,
+  CategoryType,
+  InfoBoxType,
+  ProductType,
+} from "@/types/types";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import router from "next/router";
 import { useState } from "react";
@@ -55,7 +61,7 @@ const ProductDetail: NextPage<Props> = ({
   };
 
   const handleAddToCart = () => {
-    if (!isAddedToCart) { 
+    if (!isAddedToCart) {
       setButtonText("Додадено");
 
       const order = JSON.parse(localStorage.getItem("order") || "[]");
@@ -63,7 +69,7 @@ const ProductDetail: NextPage<Props> = ({
 
       localStorage.setItem("order", JSON.stringify(updatedOrder));
       setIsOrder(true);
-      setIsAddedToCart(true); 
+      setIsAddedToCart(true);
 
       setTimeout(() => {
         router.push("/order");
@@ -84,7 +90,11 @@ const ProductDetail: NextPage<Props> = ({
 
   return (
     <>
-      <Header brands={brands} categories={categories} accessories={accessories} />
+      <Header
+        brands={brands}
+        categories={categories}
+        accessories={accessories}
+      />
       <Scroller />
       <div className="container">
         <div className="row justify-content-center">
@@ -165,11 +175,12 @@ const ProductDetail: NextPage<Props> = ({
               {buttonText === "Додај во Кошничка" ? (
                 <span>Додај во Кошничка</span>
               ) : (
-               <div style={{position: "relative"}}> <span className="m-0 p-0">Додадено</span>
-               <img className="dodadeno" src="/Icons/Group 9.svg" alt="" />
-               <p className="m-0 p-0 fs-sm">кон кошничката →</p>
-               </div>
-               
+                <div style={{ position: "relative" }}>
+                  {" "}
+                  <span className="m-0 p-0">Додадено</span>
+                  <img className="dodadeno" src="/Icons/Group 9.svg" alt="" />
+                  <p className="m-0 p-0 fs-sm">кон кошничката →</p>
+                </div>
               )}
             </button>
             <button className="btn" onClick={handleToggleFavorite}>
@@ -259,11 +270,10 @@ const ProductDetail: NextPage<Props> = ({
             {isOrder ? (
               <i className="fa-solid fa-check"></i>
             ) : (
-              <div >
-              <i className="fa-solid fa-shopping-cart fa-lg"></i>
+              <div>
+                <i className="fa-solid fa-shopping-cart fa-lg"></i>
               </div>
             )}
-            
           </button>
         </div>
       </div>

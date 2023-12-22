@@ -79,7 +79,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = brands.map((brand) => {
     return {
       params: {
-        id: brand.id,
+        id: String(brand.id),
       },
     };
   });
